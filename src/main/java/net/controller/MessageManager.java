@@ -31,7 +31,10 @@ public class MessageManager {
                 if (rs) {
                     message.setType(MessageManager.LOGIN);
                     message.setErrno(Status.LOGIN_SUCCESS);
-                    message.setContent(new HashMap<>());
+                    HashMap<String, String> content = new HashMap<>();
+                    content.put("uid", uid);
+                    content.put("name", uid + Math.random() % 100);
+                    message.setContent(content);
                     String send = Json.encode(message);
                     Log.logI(uid + "登录成功！");
                     session.sendData(send);
