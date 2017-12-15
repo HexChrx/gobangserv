@@ -20,4 +20,12 @@ public class Log {
     public static void logE(Object object) {
         LOGGER.error(object);
     }
+
+    /**
+     * INFO日志
+     * @param object 消息
+     */
+    public static void logI(Object object) {
+        LOGGER.info(object);
+    }
 }

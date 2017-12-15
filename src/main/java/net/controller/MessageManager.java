@@ -26,13 +26,14 @@ public class MessageManager {
         String uid;
         switch (message.getType()) {
             case LOGIN:
-                boolean rs = UserManager.login(message.get("uid"), message.get("password"), session);
+                uid = message.get("uid");
+                boolean rs = UserManager.login(uid, message.get("password"), session);
                 if (rs) {
                     message.setType(MessageManager.LOGIN);
                     message.setErrno(Status.LOGIN_SUCCESS);
                     message.setContent(new HashMap<>());
                     String send = Json.encode(message);
-                    Log.logD(send);
+                    Log.logI(uid + "登录成功！");
                     session.sendData(send);
                 }
                 break;
@@ -42,6 +43,8 @@ public class MessageManager {
                 if (user != null && user.getSession() != null) {
                     String msg = message.get("message");
                     user.getSession().sendData(msg);
+                    Log.logI(message.get("from") + " send message (" + message.get("message")
+                            + ") to " + message.get("to"));
                 }
                 break;
             case CREATEROOM:
